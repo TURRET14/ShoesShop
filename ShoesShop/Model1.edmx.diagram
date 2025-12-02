@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="27049a09427d40939413ae1d72889d6a" Name="Diagram1">
+        <EntityTypeShape EntityType="Emelyanenko_ShoesShopModel.OrderStatus" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Emelyanenko_ShoesShopModel.PickupPoint" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Emelyanenko_ShoesShopModel.Product" Width="1.5" PointX="5.25" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Emelyanenko_ShoesShopModel.ProductCategory" Width="1.5" PointX="3" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Emelyanenko_ShoesShopModel.ProductManufacturer" Width="1.5" PointX="3" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Emelyanenko_ShoesShopModel.ProductSupplier" Width="1.5" PointX="3" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Emelyanenko_ShoesShopModel.ShopOrder" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Emelyanenko_ShoesShopModel.ShopOrderDetail" Width="1.5" PointX="7.5" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Emelyanenko_ShoesShopModel.ShopUser" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Emelyanenko_ShoesShopModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Emelyanenko_ShoesShopModel.UserRole" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <AssociationConnector Association="Emelyanenko_ShoesShopModel.FK__ShopOrder__Order__1EA48E88" ManuallyRouted="false" />
+        <AssociationConnector Association="Emelyanenko_ShoesShopModel.FK__ShopOrder__Picku__1CBC4616" ManuallyRouted="false" />
+        <AssociationConnector Association="Emelyanenko_ShoesShopModel.FK__Product__Product__14270015" ManuallyRouted="false" />
+        <AssociationConnector Association="Emelyanenko_ShoesShopModel.FK__Product__Product__151B244E" ManuallyRouted="false" />
+        <AssociationConnector Association="Emelyanenko_ShoesShopModel.FK__Product__Product__160F4887" ManuallyRouted="false" />
+        <AssociationConnector Association="Emelyanenko_ShoesShopModel.FK__ShopOrder__Produ__22751F6C" ManuallyRouted="false" />
+        <AssociationConnector Association="Emelyanenko_ShoesShopModel.FK__ShopOrder__Clien__1DB06A4F" ManuallyRouted="false" />
+        <AssociationConnector Association="Emelyanenko_ShoesShopModel.FK__ShopOrder__ShopO__2180FB33" ManuallyRouted="false" />
+        <AssociationConnector Association="Emelyanenko_ShoesShopModel.FK__ShopUser__UserRo__0B91BA14" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
