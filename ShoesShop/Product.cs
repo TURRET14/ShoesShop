@@ -38,5 +38,13 @@ namespace ShoesShop
         public virtual ProductCategory ProductCategory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ShopOrderDetail> ShopOrderDetail { get; set; }
+
+        public int ProductTotalPrice
+        {
+            get
+            {
+                return ProductPrice - (ProductPrice * ProductDiscount / 100);
+            }
+        }
     }
 }

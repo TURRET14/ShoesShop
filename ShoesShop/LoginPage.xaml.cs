@@ -42,10 +42,11 @@ namespace ShoesShop
                 return;
             }
 
-            ShopUser user = Emelyanenko_ShoesShopEntities.GetInstance().ShopUser.First(entry => entry.UserLogin == TextBox_Login.Text && entry.UserPassword == PasswordBox_Password.Password);
+            ShopUser user = Emelyanenko_ShoesShopEntities.GetInstance().ShopUser.ToList().First(entry => entry.UserLogin == TextBox_Login.Text && entry.UserPassword == PasswordBox_Password.Password);
             if (user != null)
             {
                 NavigationService.Navigate(new ProductsPage(user));
+                ((MainWindow)Application.Current.MainWindow).TextBlock_FIO.Text = user.UserFIO;
             }
         }
 

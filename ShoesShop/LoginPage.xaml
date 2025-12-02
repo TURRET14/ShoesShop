@@ -6,7 +6,10 @@
       xmlns:local="clr-namespace:ShoesShop"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="LoginPage">
+      Title="Страница входа">
+    <Page.Resources>
+        <ResourceDictionary Source="/Dictionary1.xaml"></ResourceDictionary>
+    </Page.Resources>
 
     <Grid HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="250">
         <Grid.RowDefinitions>

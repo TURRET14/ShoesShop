@@ -20,29 +20,77 @@ namespace ShoesShop
     /// </summary>
     public partial class ProductsPage : Page
     {
+        private ProductSupplier allSuppliersOption = new ProductSupplier() { Name = "Все поставщики" };
         public ProductsPage(ShopUser user)
         {
             InitializeComponent();
-            if (user.UserRole.Name == "Авторизованный клиент")
+            ListBox_Data.ItemsSource = Emelyanenko_ShoesShopEntities.GetInstance().Product.ToList();
+            List<ProductSupplier> suppliers = Emelyanenko_ShoesShopEntities.GetInstance().ProductSupplier.ToList();
+            suppliers.Add(allSuppliersOption);
+            ComboBox_FilterSupplier.ItemsSource = suppliers;
+            if (user.UserRole.Name == "Администратор" || user.UserRole.Name == "Менеджер")
             {
-
-            }
-            else if (user.UserRole.Name == "Администратор")
-            {
-
-            }
-            else if (user.UserRole.Name == "Менеджер")
-            {
-
-            }
-            else
-            {
-
+                Grid_Filters.Visibility = Visibility.Visible;
+                Grid_Sorting.Visibility = Visibility.Visible;
             }
         }
         public ProductsPage()
         {
             InitializeComponent();
+            ListBox_Data.ItemsSource = Emelyanenko_ShoesShopEntities.GetInstance().Product.ToList();
+            List<ProductSupplier> suppliers = Emelyanenko_ShoesShopEntities.GetInstance().ProductSupplier.ToList();
+            suppliers.Add(allSuppliersOption);
+            ComboBox_FilterSupplier.ItemsSource = suppliers;
+        }
+
+        private void TextBox_Filter_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            FilterAndSort();
+        }
+
+        private void ComboBox_Filter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            FilterAndSort();
+        }
+
+        private void FilterAndSort()
+        {
+            List<Product> products = Emelyanenko_ShoesShopEntities.GetInstance().Product.ToList();
+            if (!String.IsNullOrEmpty(TextBox_FilterArticle.Text))
+            {
+                products = products.Where(entry => entry.ProductArticle.ToUpper().Contains(TextBox_FilterArticle.Text.ToUpper())).ToList();
+            }
+
+            if (!String.IsNullOrEmpty(TextBox_FilterName.Text))
+            {
+                products = products.Where(entry => entry.ProductName.ToUpper().Contains(TextBox_FilterName.Text.ToUpper())).ToList();
+            }
+
+            if (!String.IsNullOrEmpty(TextBox_FilterDescription.Text))
+            {
+                products = products.Where(entry => entry.ProductDescription.ToUpper().Contains(TextBox_FilterDescription.Text.ToUpper())).ToList();
+            }
+
+            if (ComboBox_FilterSupplier.SelectedItem != null)
+            {
+                if (!(ComboBox_FilterSupplier.SelectedItem == allSuppliersOption))
+                {
+                    products = products.Where(entry => entry.ProductSupplier == ComboBox_FilterSupplier.SelectedItem).ToList();
+                }
+            }
+
+            if (ComboBox_Sort.SelectedItem.ToString() == "По возрастанию")
+            {
+                products = products.OrderBy(entry => entry.ProductInStock).ToList();
+            }
+            else if (ComboBox_Sort.SelectedItem.ToString() == "По убыванию")
+            {
+                products = products.OrderBy(entry => entry.ProductInStock).Reverse().ToList();
+            }
+            if (ListBox_Data != null)
+            {
+                ListBox_Data.ItemsSource = products;
+            }
         }
     }
 }

@@ -5,8 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ShoesShop"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Магазин по продаже обуви" Height="450" Width="800" Icon="/Icon.ico">
+    <Window.Resources>
+        <ResourceDictionary Source="/Dictionary1.xaml"></ResourceDictionary>
+    </Window.Resources>
     <Grid>
-        <Frame Name="MainFrame" Source="/LoginPage.xaml"></Frame>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0" Source="/Icon.png" Width="50" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+            <TextBlock Grid.Column="1" Text="Магазин по продаже обуви"></TextBlock>
+            <Button Name="Button_Back" Grid.Column="2" HorizontalAlignment="Left" Click="Button_Back_Click">Назад</Button>
+            <Button Name="Button_GoToLogin" Grid.Column="3" HorizontalAlignment="Left" Click="Button_GoToLogin_Click">Страница входа</Button>
+            <TextBlock Name="TextBlock_FIO" Grid.Column="4" HorizontalAlignment="Right"></TextBlock>
+        </Grid>
+        <Frame Name="MainFrame" Grid.Row="1" Source="/LoginPage.xaml" NavigationUIVisibility="Hidden"></Frame>
     </Grid>
 </Window>

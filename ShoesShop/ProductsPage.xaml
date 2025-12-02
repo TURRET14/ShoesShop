@@ -4,32 +4,95 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ShoesShop"
+      xmlns:system="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="ProductsPage">
+      Title="Страница товаров">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Dictionary1.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+            <local:ProductDiscountConverter x:Key="ProductDiscountConverter"></local:ProductDiscountConverter>
+            <local:ProductHasDiscountConverter x:Key="ProductHasDiscountConverter"></local:ProductHasDiscountConverter>
+        </ResourceDictionary>
+    </Page.Resources>
 
     <Grid HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="250">
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0"></Grid>
-        <Grid Grid.Row="1"></Grid>
-        <ListBox Grid.Row="2">
+        <TextBlock Grid.Row="0" Text="Товары"></TextBlock>
+        <Grid Grid.Row="1" Name="Grid_Filters" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Text="Поиск"></TextBlock>
+            
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Артикул"></TextBlock>
+            <TextBox Name="TextBox_FilterArticle" Grid.Row="1" Grid.Column="1" TextChanged="TextBox_Filter_TextChanged"></TextBox>
+
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="Название"></TextBlock>
+            <TextBox Name="TextBox_FilterName" Grid.Row="2" Grid.Column="1" TextChanged="TextBox_Filter_TextChanged"></TextBox>
+
+            <TextBlock Grid.Row="3" Grid.Column="0" Text="Описание"></TextBlock>
+            <TextBox Name="TextBox_FilterDescription" Grid.Row="3" Grid.Column="1" TextChanged="TextBox_Filter_TextChanged"></TextBox>
+
+            <TextBlock Grid.Row="4" Grid.Column="0" Text="Поставщик"></TextBlock>
+            <ComboBox Name="ComboBox_FilterSupplier" Grid.Row="4" Grid.Column="1" SelectionChanged="ComboBox_Filter_SelectionChanged" DisplayMemberPath="Name"></ComboBox>
+        </Grid>
+        <Grid Grid.Row="2" Name="Grid_Sorting" Visibility="Collapsed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Сортировка по количеству на складе"></TextBlock>
+            <ComboBox Name="ComboBox_Sort" Grid.Column="1" SelectionChanged="ComboBox_Filter_SelectionChanged" SelectedIndex="0">
+                <system:String>По возрастанию</system:String>
+                <system:String>По убыванию</system:String>
+            </ComboBox>
+        </Grid>
+        <ListBox Grid.Row="3" Name="ListBox_Data" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
+                    <DataTemplate.Resources>
+                        <ResourceDictionary Source="/Dictionary1.xaml"></ResourceDictionary>
+                    </DataTemplate.Resources>
+                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <Grid.Style>
+                            <Style>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ProductDiscount, Converter={StaticResource ProductDiscountConverter}}" Value="True">
+                                        <Setter Property="Grid.Background" Value="#2E8B57"></Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Style>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
                             <ColumnDefinition Width="Auto"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Image Grid.Column="0">
+                        <Image Grid.Column="0" Width="100" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality">
                             <Image.Source>
                                 <Binding Path="ProductPhotoPath">
-                                    <Binding.FallbackValue>/Logo.png</Binding.FallbackValue>
-                                    <Binding.TargetNullValue>/Logo.png</Binding.TargetNullValue>
+                                    <Binding.FallbackValue>
+                                        <ImageSource>/picture.png</ImageSource>
+                                    </Binding.FallbackValue>
+                                    <Binding.TargetNullValue>
+                                        <ImageSource>/picture.png</ImageSource>
+                                    </Binding.TargetNullValue>
                                 </Binding>
                             </Image.Source>
                         </Image>
@@ -63,7 +126,44 @@
                             <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding ProductSupplier.Name}"></TextBlock>
 
                             <TextBlock Grid.Row="4" Grid.Column="0" Text="Цена"></TextBlock>
-                            <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding ProductPrice}"></TextBlock>
+                            <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
+                                <TextBlock Text="{Binding ProductPrice}">
+                                    <TextBlock.Style>
+                                        <Style>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ProductDiscount, Converter={StaticResource ProductHasDiscountConverter}}" Value="True">
+                                                    <Setter Property="TextBlock.TextDecorations" Value="Strikethrough"></Setter>
+                                                    <Setter Property="TextBlock.Foreground" Value="Red"></Setter>
+                                                    <Setter Property="TextBlock.FontFamily" Value="Times New Roman"></Setter>
+                                                    <Setter Property="TextBlock.FontSize" Value="20"></Setter>
+                                                    <Setter Property="TextBlock.Padding" Value="5"></Setter>
+                                                    <Setter Property="TextBlock.Margin" Value="5"></Setter>
+                                                    <Setter Property="TextBlock.VerticalAlignment" Value="Center"></Setter>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                                <TextBlock Name="TotalPrice"  Text="{Binding ProductTotalPrice}">
+                                    <TextBlock.Style>
+                                        <Style>
+                                            <Style.Setters>
+                                                <Setter Property="TextBlock.Visibility" Value="Collapsed"></Setter>
+                                                <Setter Property="TextBlock.FontFamily" Value="Times New Roman"></Setter>
+                                                <Setter Property="TextBlock.FontSize" Value="20"></Setter>
+                                                <Setter Property="TextBlock.Padding" Value="5"></Setter>
+                                                <Setter Property="TextBlock.Margin" Value="5"></Setter>
+                                                <Setter Property="TextBlock.VerticalAlignment" Value="Center"></Setter>
+                                            </Style.Setters>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ProductDiscount, Converter={StaticResource ProductHasDiscountConverter}}" Value="True">
+                                                    <Setter Property="TextBlock.Visibility" Value="Visible"></Setter>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </StackPanel>
 
                             <TextBlock Grid.Row="5" Grid.Column="0" Text="Единица измерения"></TextBlock>
                             <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding ProductUnit}"></TextBlock>
@@ -71,7 +171,12 @@
                             <TextBlock Grid.Row="6" Grid.Column="0" Text="Количество на складе"></TextBlock>
                             <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding ProductInStock}"></TextBlock>
                         </Grid>
-                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ProductDiscount}"></TextBlock>
+                        <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="Скидка "></TextBlock>
+                            <TextBlock Text="{Binding ProductDiscount}"></TextBlock>
+                            <TextBlock Text="%"></TextBlock>
+                        </StackPanel>
+                        
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>

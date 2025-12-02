@@ -24,5 +24,18 @@ namespace ShoesShop
         {
             InitializeComponent();
         }
+
+        private void Button_Back_Click(object sender, RoutedEventArgs e)
+        {
+            if (MainFrame.NavigationService.CanGoBack)
+            {
+                MainFrame.NavigationService.GoBack();
+            }
+        }
+
+        private void Button_GoToLogin_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.NavigationService.Navigate(new LoginPage());
+        }
     }
 }
