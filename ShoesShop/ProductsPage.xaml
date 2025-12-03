@@ -153,34 +153,19 @@
                             <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
                                 <TextBlock Text="{Binding ProductPrice}">
                                     <TextBlock.Style>
-                                        <Style>
+                                        <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockStyle}">
                                             <Style.Triggers>
                                                 <DataTrigger Binding="{Binding ProductDiscount, Converter={StaticResource ProductHasDiscountConverter}}" Value="True">
                                                     <Setter Property="TextBlock.TextDecorations" Value="Strikethrough"></Setter>
                                                     <Setter Property="TextBlock.Foreground" Value="Red"></Setter>
                                                 </DataTrigger>
                                             </Style.Triggers>
-                                            <Style.Setters>
-                                                <Setter Property="TextBlock.FontFamily" Value="Times New Roman"></Setter>
-                                                <Setter Property="TextBlock.FontSize" Value="20"></Setter>
-                                                <Setter Property="TextBlock.Padding" Value="5"></Setter>
-                                                <Setter Property="TextBlock.Margin" Value="5"></Setter>
-                                                <Setter Property="TextBlock.VerticalAlignment" Value="Center"></Setter>
-                                            </Style.Setters>
                                         </Style>
                                     </TextBlock.Style>
                                 </TextBlock>
-                                <TextBlock Name="TotalPrice"  Text="{Binding ProductTotalPrice}">
+                                <TextBlock Name="TotalPrice" Text="{Binding ProductTotalPrice}">
                                     <TextBlock.Style>
-                                        <Style>
-                                            <Style.Setters>
-                                                <Setter Property="TextBlock.Visibility" Value="Collapsed"></Setter>
-                                                <Setter Property="TextBlock.FontFamily" Value="Times New Roman"></Setter>
-                                                <Setter Property="TextBlock.FontSize" Value="20"></Setter>
-                                                <Setter Property="TextBlock.Padding" Value="5"></Setter>
-                                                <Setter Property="TextBlock.Margin" Value="5"></Setter>
-                                                <Setter Property="TextBlock.VerticalAlignment" Value="Center"></Setter>
-                                            </Style.Setters>
+                                        <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockStyle}">
                                             <Style.Triggers>
                                                 <DataTrigger Binding="{Binding ProductDiscount, Converter={StaticResource ProductHasDiscountConverter}}" Value="True">
                                                     <Setter Property="TextBlock.Visibility" Value="Visible"></Setter>
