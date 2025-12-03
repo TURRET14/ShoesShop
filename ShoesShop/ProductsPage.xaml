@@ -7,7 +7,8 @@
       xmlns:system="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Страница товаров">
+      Title="Страница товаров"
+      Loaded="Page_Loaded">
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -23,9 +24,18 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="Товары"></TextBlock>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Товары"></TextBlock>
+            <Button Name="Button_Orders" Grid.Column="1" Visibility="Collapsed" Click="Button_Orders_Click">Перейти к заказам</Button>
+        </Grid>
+        
         <Grid Grid.Row="1" Name="Grid_Filters" Visibility="Collapsed">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
@@ -63,7 +73,21 @@
                 <system:String>По убыванию</system:String>
             </ComboBox>
         </Grid>
-        <ListBox Grid.Row="3" Name="ListBox_Data" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+        <Grid Name="Grid_Add_Delete" Grid.Row="3" Visibility="Collapsed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Name="Button_Add" Grid.Column="0" Click="Button_Add_Click">Добавить товар</Button>
+            <Button Name="Button_Delete" Grid.Column="1" Click="Button_Delete_Click">Удалить выбранные записи</Button>
+        </Grid>
+        
+        <ListBox Grid.Row="4" Name="ListBox_Data" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" SelectionMode="Multiple" ScrollViewer.CanContentScroll="False">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <EventSetter Event="MouseDoubleClick" Handler="ListBox_Data_MouseDoubleClick"></EventSetter>
+                </Style>
+            </ListBox.ItemContainerStyle>
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <DataTemplate.Resources>
@@ -86,7 +110,7 @@
                         </Grid.ColumnDefinitions>
                         <Image Grid.Column="0" Width="100" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality">
                             <Image.Source>
-                                <Binding Path="ProductPhotoPath">
+                                <Binding Path="FullPhotoPath">
                                     <Binding.FallbackValue>
                                         <ImageSource>/picture.png</ImageSource>
                                     </Binding.FallbackValue>
@@ -134,13 +158,15 @@
                                                 <DataTrigger Binding="{Binding ProductDiscount, Converter={StaticResource ProductHasDiscountConverter}}" Value="True">
                                                     <Setter Property="TextBlock.TextDecorations" Value="Strikethrough"></Setter>
                                                     <Setter Property="TextBlock.Foreground" Value="Red"></Setter>
-                                                    <Setter Property="TextBlock.FontFamily" Value="Times New Roman"></Setter>
-                                                    <Setter Property="TextBlock.FontSize" Value="20"></Setter>
-                                                    <Setter Property="TextBlock.Padding" Value="5"></Setter>
-                                                    <Setter Property="TextBlock.Margin" Value="5"></Setter>
-                                                    <Setter Property="TextBlock.VerticalAlignment" Value="Center"></Setter>
                                                 </DataTrigger>
                                             </Style.Triggers>
+                                            <Style.Setters>
+                                                <Setter Property="TextBlock.FontFamily" Value="Times New Roman"></Setter>
+                                                <Setter Property="TextBlock.FontSize" Value="20"></Setter>
+                                                <Setter Property="TextBlock.Padding" Value="5"></Setter>
+                                                <Setter Property="TextBlock.Margin" Value="5"></Setter>
+                                                <Setter Property="TextBlock.VerticalAlignment" Value="Center"></Setter>
+                                            </Style.Setters>
                                         </Style>
                                     </TextBlock.Style>
                                 </TextBlock>

@@ -42,11 +42,15 @@ namespace ShoesShop
                 return;
             }
 
-            ShopUser user = Emelyanenko_ShoesShopEntities.GetInstance().ShopUser.ToList().First(entry => entry.UserLogin == TextBox_Login.Text && entry.UserPassword == PasswordBox_Password.Password);
+            ShopUser user = Emelyanenko_ShoesShopEntities.GetInstance().ShopUser.FirstOrDefault(entry => entry.UserLogin == TextBox_Login.Text && entry.UserPassword == PasswordBox_Password.Password);
             if (user != null)
             {
                 NavigationService.Navigate(new ProductsPage(user));
                 ((MainWindow)Application.Current.MainWindow).TextBlock_FIO.Text = user.UserFIO;
+            }
+            else
+            {
+                MessageBox.Show("Введен неверный логин или пароль!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Stop);
             }
         }
 

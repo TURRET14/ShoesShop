@@ -21,9 +21,11 @@ namespace ShoesShop
     public partial class ProductsPage : Page
     {
         private ProductSupplier allSuppliersOption = new ProductSupplier() { Name = "Все поставщики" };
+        private ShopUser user;
         public ProductsPage(ShopUser user)
         {
             InitializeComponent();
+            this.user = user;
             ListBox_Data.ItemsSource = Emelyanenko_ShoesShopEntities.GetInstance().Product.ToList();
             List<ProductSupplier> suppliers = Emelyanenko_ShoesShopEntities.GetInstance().ProductSupplier.ToList();
             suppliers.Add(allSuppliersOption);
@@ -32,6 +34,11 @@ namespace ShoesShop
             {
                 Grid_Filters.Visibility = Visibility.Visible;
                 Grid_Sorting.Visibility = Visibility.Visible;
+                Button_Orders.Visibility = Visibility.Visible;
+            }
+            if (user.UserRole.Name == "Администратор")
+            {
+                Grid_Add_Delete.Visibility = Visibility.Visible;
             }
         }
         public ProductsPage()
@@ -91,6 +98,59 @@ namespace ShoesShop
             {
                 ListBox_Data.ItemsSource = products;
             }
+        }
+
+        private void ListBox_Data_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (user.UserRole.Name == "Администратор")
+            {
+                if (sender != null)
+                {
+                    NavigationService.Navigate(new EditProductPage(((ListBoxItem)sender).DataContext as Product));
+                }
+            }
+        }
+
+        private void Button_Delete_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("Вы уверены, что хотите удалить выбранные записи?", "Удаление", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    List<Product> products = ListBox_Data.SelectedItems.Cast<Product>().ToList();
+                    foreach (Product product in products)
+                    {
+                        if (Emelyanenko_ShoesShopEntities.GetInstance().ShopOrderDetail.FirstOrDefault(entry => entry.ProductID == product.ID) != null)
+                        {
+                            MessageBox.Show("Один или более из выбранных товаров используется в заказе. Его удаление невозможно.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                    }
+                    Emelyanenko_ShoesShopEntities.GetInstance().Product.RemoveRange(products);
+                    Emelyanenko_ShoesShopEntities.GetInstance().SaveChanges();
+                    ListBox_Data.ItemsSource = Emelyanenko_ShoesShopEntities.GetInstance().Product.ToList();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Произошла ошибка при работе с базой данных.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                
+            }
+        }
+
+        private void Button_Add_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new EditProductPage());
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            ListBox_Data.ItemsSource = Emelyanenko_ShoesShopEntities.GetInstance().Product.ToList();
+        }
+
+        private void Button_Orders_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new OrdersPage(user));
         }
     }
 }

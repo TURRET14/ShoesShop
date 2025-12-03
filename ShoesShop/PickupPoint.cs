@@ -25,7 +25,15 @@ namespace ShoesShop
         public string City { get; set; }
         public string Street { get; set; }
         public Nullable<int> HouseIndex { get; set; }
-    
+
+        public string FullAddress
+        {
+            get
+            {
+                return $"{City}, ул. {Street}, д. {HouseIndex}, {PostIndex}";
+            }
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ShopOrder> ShopOrder { get; set; }
     }

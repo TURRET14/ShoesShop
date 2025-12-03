@@ -11,8 +11,9 @@ namespace ShoesShop
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class Product
+    using System.IO;
+
+    public partial class Product : IComparable<Product>
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
@@ -32,6 +33,25 @@ namespace ShoesShop
         public int ProductInStock { get; set; }
         public string ProductDescription { get; set; }
         public string ProductPhotoPath { get; set; }
+
+        public string FullPhotoPath
+        {
+            get
+            {
+                if (ProductPhotoPath != null && !ProductPhotoPath.Contains(":\\"))
+                {
+                    return Path.GetFullPath(ProductPhotoPath);
+                }
+                else if (ProductPhotoPath != null && ProductPhotoPath.Contains(":\\"))
+                {
+                    return ProductPhotoPath;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
     
         public virtual ProductSupplier ProductSupplier { get; set; }
         public virtual ProductManufacturer ProductManufacturer { get; set; }
@@ -45,6 +65,11 @@ namespace ShoesShop
             {
                 return ProductPrice - (ProductPrice * ProductDiscount / 100);
             }
+        }
+
+        public int CompareTo(Product other)
+        {
+            return this.ProductName.CompareTo(other.ProductName);
         }
     }
 }

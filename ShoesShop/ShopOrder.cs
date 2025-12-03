@@ -11,7 +11,11 @@ namespace ShoesShop
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Collections.ObjectModel;
+    using System.Collections.Specialized;
+    using System.Runtime.Remoting.Contexts;
+    using System.Windows.Controls.Primitives;
+
     public partial class ShopOrder
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -33,5 +37,13 @@ namespace ShoesShop
         public virtual ShopUser ShopUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ShopOrderDetail> ShopOrderDetail { get; set; }
+
+        public List<ShopOrderDetail> ShopOrderDetailList
+        {
+            get
+            {
+                return new List<ShopOrderDetail>(ShopOrderDetail);
+            }
+        }
     }
 }
