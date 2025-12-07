@@ -12,7 +12,7 @@ namespace ShoesShop
     using System;
     using System.Collections.Generic;
     
-    public partial class ShopOrderDetail
+    public partial class ShopOrderDetail : IComparable<ShopOrderDetail>
     {
         public int ID { get; set; }
         public int ShopOrderID { get; set; }
@@ -21,5 +21,10 @@ namespace ShoesShop
     
         public virtual Product Product { get; set; }
         public virtual ShopOrder ShopOrder { get; set; }
+
+        public int CompareTo(ShopOrderDetail other)
+        {
+            return ID.CompareTo(other.ID);
+        }
     }
 }

@@ -15,18 +15,22 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Image Grid.Column="0" Source="/Icon.png" Width="50" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"></Image>
-            <TextBlock Grid.Column="1" Text="Магазин по продаже обуви"></TextBlock>
-            <Button Name="Button_Back" Grid.Column="2" HorizontalAlignment="Left" Click="Button_Back_Click">Назад</Button>
-            <Button Name="Button_GoToLogin" Grid.Column="3" HorizontalAlignment="Left" Click="Button_GoToLogin_Click">Страница входа</Button>
-            <TextBlock Name="TextBlock_FIO" Grid.Column="4" HorizontalAlignment="Right"></TextBlock>
+            <Image Grid.Row="0" Grid.Column="0" Source="/Icon.png" Width="50" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="Магазин по продаже обуви" FontWeight="Bold"></TextBlock>
+            <TextBlock Name="TextBlock_FIO" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right"></TextBlock>
+
+            <Button Name="Button_Back" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Click="Button_Back_Click">Назад</Button>
+            <Button Name="Button_GoToLogin" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Click="Button_GoToLogin_Click">Страница входа</Button>
         </Grid>
         <Frame Name="MainFrame" Grid.Row="1" Source="/LoginPage.xaml" NavigationUIVisibility="Hidden"></Frame>
     </Grid>

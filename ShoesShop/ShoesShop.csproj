@@ -214,16 +214,16 @@
     <Resource Include="Icon.ico" />
     <Resource Include="Icon.JPG" />
     <Resource Include="Icon.png" />
-    <Resource Include="1.jpg" />
-    <Resource Include="10.jpg" />
-    <Resource Include="2.jpg" />
-    <Resource Include="3.jpg" />
-    <Resource Include="4.jpg" />
-    <Resource Include="5.jpg" />
-    <Resource Include="6.jpg" />
-    <Resource Include="7.jpg" />
-    <Resource Include="8.jpg" />
-    <Resource Include="9.jpg" />
+    <None Include="1.jpg" />
+    <None Include="10.jpg" />
+    <None Include="2.jpg" />
+    <None Include="3.jpg" />
+    <None Include="4.jpg" />
+    <None Include="5.jpg" />
+    <None Include="6.jpg" />
+    <None Include="7.jpg" />
+    <None Include="8.jpg" />
+    <None Include="9.jpg" />
     <Content Include="Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Model1.Context.cs</LastGenOutput>

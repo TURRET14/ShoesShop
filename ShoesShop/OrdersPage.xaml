@@ -4,8 +4,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ShoesShop"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
       Title="Страница заказов"
       Loaded="Page_Loaded">
     <Page.Resources>
@@ -16,82 +14,84 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="500">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition></RowDefinition>
-        </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="Заказы"></TextBlock>
-        <Grid Name="Grid_Add_Delete" Grid.Row="1" Visibility="Collapsed">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Button Name="Button_Add" Grid.Column="0" Click="Button_Add_Click">Добавить заказ</Button>
-            <Button Name="Button_Delete" Grid.Column="1" Click="Button_Delete_Click">Удалить выбранные записи</Button>
+    <ScrollViewer>
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="500">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Text="Заказы" FontWeight="Bold"></TextBlock>
+            <Grid Name="Grid_Add_Delete" Grid.Row="1" Visibility="Collapsed">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button Name="Button_Add" Grid.Column="0" Click="Button_Add_Click">Добавить заказ</Button>
+                <Button Name="Button_Delete" Grid.Column="1" Click="Button_Delete_Click">Удалить выбранные записи</Button>
+            </Grid>
+            <ListBox Name="ListBox_Data" Grid.Row="2" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" SelectionMode="Multiple" ScrollViewer.CanContentScroll="False">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <EventSetter Event="MouseDoubleClick" Handler="ListBoxItem_MouseDoubleClick"></EventSetter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <DataTemplate.Resources>
+                            <ResourceDictionary>
+                                <ResourceDictionary.MergedDictionaries>
+                                    <ResourceDictionary Source="/Dictionary1.xaml"></ResourceDictionary>
+                                </ResourceDictionary.MergedDictionaries>
+                            </ResourceDictionary>
+                        </DataTemplate.Resources>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid Grid.Column="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Товары"></TextBlock>
+                                <DataGrid Grid.Row="0" Grid.Column="1" AutoGenerateColumns="False" IsReadOnly="True" ItemsSource="{Binding ShopOrderDetailList}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Описание" Binding="{Binding Product.ProductDescription}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Количество" Binding="{Binding Amount}"></DataGridTextColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="Статус заказа"></TextBlock>
+                                <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding OrderStatus.Name}"></TextBlock>
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="Адрес пункта выдачи"></TextBlock>
+                                <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding PickupPoint.FullAddress}"></TextBlock>
+
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="Дата заказа"></TextBlock>
+                                <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding OrderDate}"></TextBlock>
+                            </Grid>
+
+                            <Grid Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Дата доставки"></TextBlock>
+                                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding DeliveryDate}"></TextBlock>
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </Grid>
-        <ListBox Name="ListBox_Data" Grid.Row="2" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" SelectionMode="Multiple" ScrollViewer.CanContentScroll="False">
-            <ListBox.ItemContainerStyle>
-                <Style TargetType="ListBoxItem">
-                    <EventSetter Event="MouseDoubleClick" Handler="ListBoxItem_MouseDoubleClick"></EventSetter>
-                </Style>
-            </ListBox.ItemContainerStyle>
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <DataTemplate.Resources>
-                        <ResourceDictionary>
-                            <ResourceDictionary.MergedDictionaries>
-                                <ResourceDictionary Source="/Dictionary1.xaml"></ResourceDictionary>
-                            </ResourceDictionary.MergedDictionaries>
-                        </ResourceDictionary>
-                    </DataTemplate.Resources>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition Width="Auto"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-
-                        <Grid Grid.Column="0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Товары"></TextBlock>
-                            <DataGrid Grid.Row="0" Grid.Column="1" AutoGenerateColumns="False" IsReadOnly="True" ItemsSource="{Binding ShopOrderDetailList}">
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Наименование" Binding="{Binding Product.ProductName}"></DataGridTextColumn>
-                                    <DataGridTextColumn Header="Количество" Binding="{Binding Amount}"></DataGridTextColumn>
-                                </DataGrid.Columns>
-                            </DataGrid>
-                            
-                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Статус заказа"></TextBlock>
-                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding OrderStatus.Name}"></TextBlock>
-
-                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Адрес пункта выдачи"></TextBlock>
-                            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding PickupPoint.FullAddress}"></TextBlock>
-
-                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Дата заказа"></TextBlock>
-                            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding OrderDate}"></TextBlock>
-                        </Grid>
-
-                        <Grid Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Дата доставки"></TextBlock>
-                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding DeliveryDate}"></TextBlock>
-                        </Grid>
-                    </Grid>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-    </Grid>
+    </ScrollViewer>
 </Page>

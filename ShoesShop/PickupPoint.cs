@@ -30,7 +30,7 @@ namespace ShoesShop
         {
             get
             {
-                return $"{City}, ул. {Street}, д. {HouseIndex}, {PostIndex}";
+                return $"{City}, {Street}, {HouseIndex}, {PostIndex}";
             }
         }
 

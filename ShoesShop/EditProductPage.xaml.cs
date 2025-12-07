@@ -24,25 +24,25 @@ namespace ShoesShop
     public partial class EditProductPage : Page
     {
         private Product selected;
-        private bool isNewObject;
+        private bool isNewProduct;
         public EditProductPage(Product selected)
         {
             InitializeComponent();
-            LoadDataIntoComboBoxes();
+            LoadData();
             this.selected = selected;
-            isNewObject = false;
+            isNewProduct = false;
             this.DataContext = selected;
         }
         public EditProductPage()
         {
             InitializeComponent();
-            LoadDataIntoComboBoxes();
+            LoadData();
             selected = new Product();
-            isNewObject = true;
+            isNewProduct = true;
             this.DataContext = selected;
         }
 
-        private void LoadDataIntoComboBoxes()
+        private void LoadData()
         {
             ComboBox_Category.ItemsSource = Emelyanenko_ShoesShopEntities.GetInstance().ProductCategory.ToList();
             ComboBox_Manufacturer.ItemsSource = Emelyanenko_ShoesShopEntities.GetInstance().ProductManufacturer.ToList();
@@ -51,17 +51,21 @@ namespace ShoesShop
 
         private void Button_SelectPhotoPath_Click(object sender, RoutedEventArgs e)
         {
+            // Открытие диалога выбора файла.
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "Изображения (*.png;*.jpg)|*.png;*.jpg";
             if (dialog.ShowDialog() == true)
             {
+                // Проверка разрешения изображения.
                 BitmapImage img = new BitmapImage(new Uri(dialog.FileName));
                 if (img.PixelWidth > 300 || img.PixelHeight > 200)
                 {
                     MessageBox.Show("Разрешение изображения слишком большое! Максимум: 300X200!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
+                // Установка пути к изображению.
                 selected.ProductPhotoPath = dialog.FileName;
+                // Обновление привязки изображения.
                 Image_Icon.GetBindingExpression(Image.SourceProperty).UpdateTarget();
             }
         }
@@ -115,6 +119,8 @@ namespace ShoesShop
                 MessageBox.Show(errors.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+            // Сохранение изображения в текущую директорию приложения, если путь абсолютный (То есть если только что было выбрано новое изображение, все остальные пути хранятся в относительном виде).
+            // Важно! Исходные изображения (1-9.jpg) не являются ресурсами и должны лежать в той же папке, что и само приложение (Исполняемый файл).
             if (selected.ProductPhotoPath != null && selected.ProductPhotoPath.Contains(":\\"))
             {
                 try
@@ -129,6 +135,7 @@ namespace ShoesShop
                         {
                             MessageBox.Show("Изображение с таким названием уже существует. Будет использовано уже существующее изображение с таким названием.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
+                        // Сохранение обновленного пути в базе данных.
                         selected.ProductPhotoPath = selected.ProductPhotoPath.Split('\\').Last();
                     }
                 }
@@ -140,7 +147,7 @@ namespace ShoesShop
             }
             
 
-            if (isNewObject)
+            if (isNewProduct)
             {
                 Emelyanenko_ShoesShopEntities.GetInstance().Product.Add(selected);
             }

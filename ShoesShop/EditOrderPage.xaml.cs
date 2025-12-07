@@ -30,7 +30,7 @@ namespace ShoesShop
             this.selected = selected;
             DataContext = selected;
             isNewOrder = false;
-            LoadDataIntoComboBoxes(false);
+            LoadData();
         }
 
         public EditOrderPage()
@@ -39,26 +39,17 @@ namespace ShoesShop
             this.selected = new ShopOrder();
             DataContext = selected;
             isNewOrder = true;
-            LoadDataIntoComboBoxes(true);
+            LoadData();
         }
 
-        private void LoadDataIntoComboBoxes(bool isNewObject)
+        private void LoadData()
         {
             ComboBox_Status.ItemsSource = Emelyanenko_ShoesShopEntities.GetInstance().OrderStatus.ToList();
             ComboBox_User.ItemsSource = Emelyanenko_ShoesShopEntities.GetInstance().ShopUser.ToList();
             ComboBox_PickupPoint.ItemsSource = Emelyanenko_ShoesShopEntities.GetInstance().PickupPoint.ToList();
             Column_Product.ItemsSource = Emelyanenko_ShoesShopEntities.GetInstance().Product.ToList();
 
-            ObservableCollection<ShopOrderDetail> collection;
-            if (isNewObject)
-            {
-                collection = new ObservableCollection<ShopOrderDetail>();
-            }
-            else
-            {
-                collection = new ObservableCollection<ShopOrderDetail>(selected.ShopOrderDetailList);
-            }
-            
+            ObservableCollection<ShopOrderDetail> collection = new ObservableCollection<ShopOrderDetail>(selected.ShopOrderDetailList);
             collection.CollectionChanged += (object sender, NotifyCollectionChangedEventArgs e) =>
             {
                 if (e.Action == NotifyCollectionChangedAction.Add)

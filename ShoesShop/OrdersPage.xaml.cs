@@ -50,6 +50,10 @@ namespace ShoesShop
                 try
                 {
                     List<ShopOrder> orders = ListBox_Data.SelectedItems.Cast<ShopOrder>().ToList();
+                    foreach (ShopOrder order in orders)
+                    {
+                        Emelyanenko_ShoesShopEntities.GetInstance().ShopOrderDetail.RemoveRange(order.ShopOrderDetailList);
+                    }
                     Emelyanenko_ShoesShopEntities.GetInstance().ShopOrder.RemoveRange(orders);
                     Emelyanenko_ShoesShopEntities.GetInstance().SaveChanges();
                     ListBox_Data.ItemsSource = Emelyanenko_ShoesShopEntities.GetInstance().ShopOrder.ToList();
