@@ -3,7 +3,7 @@
 
 
     <Style TargetType="TextBlock" x:Key="TextBlockStyle">
-        <Setter Property="FontFamily" Value="JetBrains Mono SmallCaps"></Setter>
+        <Setter Property="FontFamily" Value="Times New Roman"></Setter>
         <Setter Property="FontSize" Value="20"></Setter>
         <Setter Property="Padding" Value="5"></Setter>
         <Setter Property="Margin" Value="5"></Setter>
@@ -11,7 +11,7 @@
     </Style>
 
     <Style TargetType="TextBox" x:Key="TextBoxStyle">
-        <Setter Property="FontFamily" Value="JetBrains Mono SmallCaps"></Setter>
+        <Setter Property="FontFamily" Value="Times New Roman"></Setter>
         <Setter Property="FontSize" Value="20"></Setter>
         <Setter Property="Padding" Value="5"></Setter>
         <Setter Property="Margin" Value="5"></Setter>
@@ -19,7 +19,7 @@
     </Style>
 
     <Style TargetType="PasswordBox" x:Key="PasswordBoxStyle">
-        <Setter Property="FontFamily" Value="JetBrains Mono SmallCaps"></Setter>
+        <Setter Property="FontFamily" Value="Times New Roman"></Setter>
         <Setter Property="FontSize" Value="20"></Setter>
         <Setter Property="Padding" Value="5"></Setter>
         <Setter Property="Margin" Value="5"></Setter>
@@ -27,7 +27,7 @@
     </Style>
 
     <Style TargetType="ComboBox" x:Key="ComboBoxStyle">
-        <Setter Property="FontFamily" Value="JetBrains Mono SmallCaps"></Setter>
+        <Setter Property="FontFamily" Value="Times New Roman"></Setter>
         <Setter Property="FontSize" Value="20"></Setter>
         <Setter Property="Padding" Value="5"></Setter>
         <Setter Property="Margin" Value="5"></Setter>
@@ -35,7 +35,7 @@
     </Style>
 
     <Style TargetType="Button" x:Key="ButtonStyle">
-        <Setter Property="FontFamily" Value="JetBrains Mono SmallCaps"></Setter>
+        <Setter Property="FontFamily" Value="Times New Roman"></Setter>
         <Setter Property="FontSize" Value="20"></Setter>
         <Setter Property="Padding" Value="5"></Setter>
         <Setter Property="Margin" Value="5"></Setter>
@@ -43,7 +43,7 @@
     </Style>
 
     <Style TargetType="DatePicker" x:Key="DatePickerStyle">
-        <Setter Property="FontFamily" Value="JetBrains Mono SmallCaps"></Setter>
+        <Setter Property="FontFamily" Value="Times New Roman"></Setter>
         <Setter Property="FontSize" Value="20"></Setter>
         <Setter Property="Padding" Value="5"></Setter>
         <Setter Property="Margin" Value="5"></Setter>
@@ -51,7 +51,7 @@
     </Style>
 
     <Style TargetType="DataGrid" x:Key="DataGridStyle">
-        <Setter Property="FontFamily" Value="JetBrains Mono SmallCaps"></Setter>
+        <Setter Property="FontFamily" Value="Times New Roman"></Setter>
         <Setter Property="FontSize" Value="20"></Setter>
         <Setter Property="Padding" Value="5"></Setter>
         <Setter Property="Margin" Value="5"></Setter>

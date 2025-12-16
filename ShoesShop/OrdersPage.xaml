@@ -62,13 +62,8 @@
                                     <RowDefinition></RowDefinition>
                                     <RowDefinition></RowDefinition>
                                 </Grid.RowDefinitions>
-                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Товары"></TextBlock>
-                                <DataGrid Grid.Row="0" Grid.Column="1" AutoGenerateColumns="False" IsReadOnly="True" ItemsSource="{Binding ShopOrderDetailList}">
-                                    <DataGrid.Columns>
-                                        <DataGridTextColumn Header="Описание" Binding="{Binding Product.ProductDescription}"></DataGridTextColumn>
-                                        <DataGridTextColumn Header="Количество" Binding="{Binding Amount}"></DataGridTextColumn>
-                                    </DataGrid.Columns>
-                                </DataGrid>
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Артикул"></TextBlock>
+                                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding OrderArticle}" TextWrapping="Wrap"></TextBlock>
 
                                 <TextBlock Grid.Row="1" Grid.Column="0" Text="Статус заказа"></TextBlock>
                                 <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding OrderStatus.Name}"></TextBlock>

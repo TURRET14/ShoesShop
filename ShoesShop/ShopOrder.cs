@@ -14,6 +14,7 @@ namespace ShoesShop
     using System.Collections.ObjectModel;
     using System.Collections.Specialized;
     using System.Runtime.Remoting.Contexts;
+    using System.Text;
     using System.Windows.Controls.Primitives;
 
     public partial class ShopOrder
@@ -43,6 +44,26 @@ namespace ShoesShop
             get
             {
                 return new List<ShopOrderDetail>(ShopOrderDetail);
+            }
+        }
+
+        public string OrderArticle
+        {
+            get
+            {
+                StringBuilder OrderArticle = new StringBuilder();
+                for (int count = 0; count < ShopOrderDetailList.Count; count = count + 1)
+                {
+                    ShopOrderDetail detail = ShopOrderDetailList[count];
+                    OrderArticle.Append(detail.Product.ProductArticle);
+                    OrderArticle.Append(",");
+                    OrderArticle.Append(detail.Amount);
+                    if (count != ShopOrderDetailList.Count - 1)
+                    {
+                        OrderArticle.Append(", ");
+                    }
+                }
+                return OrderArticle.ToString();
             }
         }
     }
